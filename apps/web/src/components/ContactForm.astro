@@ -1,0 +1,484 @@
+---
+import { SITE } from "../config/site.mjs";
+import { Icon } from "astro-icon/components";
+
+// Web3Forms integration: check if access key is configured
+const web3formsAccessKey = SITE.web3formsAccessKey || "";
+const isConfigured = Boolean(web3formsAccessKey && web3formsAccessKey.trim() !== "");
+const githubUrl = SITE.github || "https://github.com/Tekromancy/blog/";
+const linkedinUrl = SITE.linkedin || "https://www.linkedin.com/in/coxjosh/";
+---
+
+{!isConfigured ? (
+  <div 
+    class="rounded-2xl border p-8 sm:p-10 relative overflow-hidden backdrop-blur-xl transition-all"
+    style="background-color: rgba(4, 9, 5, 0.9); border-color: rgba(34, 197, 94, 0.35); box-shadow: 0 0 30px rgba(34, 197, 94, 0.1);"
+  >
+    <!-- Cyberpunk Corner Accents -->
+    <div class="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-[#22c55e] pointer-events-none"></div>
+    <div class="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-[#38bdf8] pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-[#22c55e] pointer-events-none"></div>
+    <div class="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-[#38bdf8] pointer-events-none"></div>
+
+    <div class="flex flex-col items-center text-center">
+      <!-- Dual Cybernetic Emblems -->
+      <div class="flex items-center gap-4 mb-6">
+        <div 
+          class="w-14 h-14 rounded-2xl flex items-center justify-center border shadow-[0_0_20px_rgba(14,165,233,0.35)]"
+          style="background-color: rgba(14, 165, 233, 0.1); border-color: rgba(14, 165, 233, 0.5); color: #0ea5e9;"
+        >
+          <Icon name="tabler:brand-linkedin" class="w-8 h-8" aria-hidden="true" />
+        </div>
+        <div 
+          class="w-14 h-14 rounded-2xl flex items-center justify-center border shadow-[0_0_20px_rgba(34,197,94,0.35)]"
+          style="background-color: rgba(34, 197, 94, 0.1); border-color: rgba(34, 197, 94, 0.5); color: #22c55e;"
+        >
+          <Icon name="tabler:brand-github" class="w-8 h-8" aria-hidden="true" />
+        </div>
+      </div>
+
+      <!-- Telemetry Sub-badge -->
+      <div 
+        class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono mb-4 border"
+        style="background-color: rgba(34, 197, 94, 0.08); border-color: rgba(34, 197, 94, 0.3); color: #4ade80;"
+      >
+        <span class="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse"></span>
+        <span>CHANNELS::DIRECT_TRANSMISSION</span>
+      </div>
+
+      <h2 class="text-2xl sm:text-3xl font-bold font-mono tracking-tight mb-3" style="color: var(--token-color-text-primary, #ffffff);">
+        Direct Transmission Channels
+      </h2>
+
+      <p class="text-sm sm:text-base max-w-lg mb-8 leading-relaxed" style="color: var(--token-color-text-muted, #94a3b8);">
+        Connect directly with Joshua Edward McLaughlin Cox on LinkedIn for systems architecture consulting, technical discussions, or professional networking. Research dispatches, issues, and code are maintained in public on GitHub.
+      </p>
+
+      <!-- Action Cards Stack -->
+      <div class="w-full max-w-lg space-y-4">
+        <!-- LinkedIn Action Card -->
+        <a
+          href={linkedinUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-telemetry="contact_intent_click"
+          data-telemetry-app="linkedin_direct"
+          class="group w-full p-4 sm:p-5 rounded-xl border flex items-center justify-between gap-4 transition-all duration-200 hover:scale-[1.02]"
+          style="background-color: rgba(10, 16, 26, 0.9); border-color: rgba(14, 165, 233, 0.45); box-shadow: 0 0 15px rgba(14, 165, 233, 0.15);"
+          onmouseenter={(e) => {
+            e.currentTarget.style.borderColor = '#0ea5e9';
+            e.currentTarget.style.boxShadow = '0 0 25px rgba(14, 165, 233, 0.45)';
+            e.currentTarget.style.backgroundColor = 'rgba(12, 22, 36, 0.95)';
+          }}
+          onmouseleave={(e) => {
+            e.currentTarget.style.borderColor = 'rgba(14, 165, 233, 0.45)';
+            e.currentTarget.style.boxShadow = '0 0 15px rgba(14, 165, 233, 0.15)';
+            e.currentTarget.style.backgroundColor = 'rgba(10, 16, 26, 0.9)';
+          }}
+          aria-label="Connect with Joshua Cox on LinkedIn"
+        >
+          <div class="flex items-center gap-3.5 min-w-0">
+            <div class="p-2.5 rounded-lg bg-[#0ea5e9]/15 text-[#0ea5e9] shrink-0 border border-[#0ea5e9]/30 group-hover:bg-[#0ea5e9]/25 transition-colors">
+              <Icon name="tabler:brand-linkedin" class="w-5 h-5" />
+            </div>
+            <div class="flex flex-col text-left min-w-0">
+              <span class="font-mono font-bold text-sm sm:text-base text-[var(--token-color-text-primary)] group-hover:text-[#38bdf8] transition-colors truncate">
+                LinkedIn // Joshua Cox
+              </span>
+              <span class="text-xs font-mono text-[var(--token-color-text-muted)] truncate">
+                Professional Network • Systems Architecture • Consulting
+              </span>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-1.5 px-3.5 py-2 rounded-lg font-mono text-xs font-bold border border-[#0ea5e9]/60 bg-[#0ea5e9]/20 text-[#38bdf8] shrink-0 group-hover:bg-[#0ea5e9] group-hover:text-black transition-all">
+            <span>CONNECT</span>
+            <Icon name="tabler:external-link" class="w-4 h-4" />
+          </div>
+        </a>
+
+        <!-- GitHub Action Card -->
+        <a
+          href={githubUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group w-full p-4 sm:p-5 rounded-xl border flex items-center justify-between gap-4 transition-all duration-200 hover:scale-[1.02]"
+          style="background-color: rgba(10, 18, 12, 0.9); border-color: rgba(34, 197, 94, 0.45); box-shadow: 0 0 15px rgba(34, 197, 94, 0.15);"
+          onmouseenter={(e) => {
+            e.currentTarget.style.borderColor = '#22c55e';
+            e.currentTarget.style.boxShadow = '0 0 25px rgba(34, 197, 94, 0.45)';
+            e.currentTarget.style.backgroundColor = 'rgba(15, 26, 18, 0.95)';
+          }}
+          onmouseleave={(e) => {
+            e.currentTarget.style.borderColor = 'rgba(34, 197, 94, 0.45)';
+            e.currentTarget.style.boxShadow = '0 0 15px rgba(34, 197, 94, 0.15)';
+            e.currentTarget.style.backgroundColor = 'rgba(10, 18, 12, 0.9)';
+          }}
+          aria-label="Open Tekromancy GitHub repository"
+        >
+          <div class="flex items-center gap-3.5 min-w-0">
+            <div class="p-2.5 rounded-lg bg-[#22c55e]/15 text-[#22c55e] shrink-0 border border-[#22c55e]/30 group-hover:bg-[#22c55e]/25 transition-colors">
+              <Icon name="tabler:brand-github" class="w-5 h-5" />
+            </div>
+            <div class="flex flex-col text-left min-w-0">
+              <span class="font-mono font-bold text-sm sm:text-base text-[var(--token-color-text-primary)] group-hover:text-[#22c55e] transition-colors truncate">
+                GitHub // Tekromancy/blog
+              </span>
+              <span class="text-xs font-mono text-[var(--token-color-text-muted)] truncate">
+                Discussions • Issues • Open-Source PRs
+              </span>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-1.5 px-3.5 py-2 rounded-lg font-mono text-xs font-bold border border-[#22c55e]/60 bg-[#22c55e]/20 text-[#22c55e] shrink-0 group-hover:bg-[#22c55e] group-hover:text-black transition-all">
+            <span>VISIT</span>
+            <Icon name="tabler:external-link" class="w-4 h-4" />
+          </div>
+        </a>
+      </div>
+
+      <!-- Quick Telemetry Links Hint -->
+      <div class="mt-6 flex flex-wrap items-center justify-center gap-3 text-xs font-mono" style="color: var(--token-color-text-muted, #64748b);">
+        <a 
+          href={linkedinUrl} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="inline-flex items-center gap-1 text-[#38bdf8] hover:underline"
+        >
+          <span class="text-[#0ea5e9]">in/</span><code class="px-2 py-0.5 rounded border border-[#0ea5e9]/30 bg-black/60 text-[#38bdf8] text-[11px]">coxjosh</code>
+        </a>
+        <span class="opacity-40">•</span>
+        <span class="inline-flex items-center gap-1">
+          <span class="opacity-60">$</span><code class="px-2 py-0.5 rounded border border-[#22c55e]/30 bg-black/60 text-[#4ade80] text-[11px]">git clone https://github.com/Tekromancy/blog.git</code>
+        </span>
+      </div>
+    </div>
+  </div>
+) : (
+  <form
+    id="contact-form"
+    class="space-y-6"
+    aria-label="Contact form"
+    novalidate
+    action="https://api.web3forms.com/submit"
+    method="POST"
+  >
+    <!-- Web3Forms Access Key (hidden) -->
+    <input type="hidden" name="access_key" value={web3formsAccessKey} />
+    
+    <!-- Web3Forms Subject (optional) -->
+    <input type="hidden" name="subject" value="New Contact Form Submission - Tekromancy" />
+    
+    <!-- Web3Forms redirect (optional - prevents page reload) -->
+    <input type="hidden" name="redirect" value="false" />
+    
+    <!-- Honeypot spam protection -->
+    <input type="checkbox" name="botcheck" class="hidden" style="display: none;" tabindex="-1" autocomplete="off" />
+
+    <!-- Success Message -->
+    <div
+      id="success-message"
+      class="hidden p-4 border rounded-lg"
+      style="background-color: var(--token-color-success, #10b981); border-color: var(--token-color-success, #10b981); color: var(--token-color-success-foreground, #ffffff);"
+      role="alert"
+      aria-live="polite"
+    >
+      <p class="font-medium" style="color: var(--token-color-success-foreground, #ffffff);">Transmission received!</p>
+      <p class="text-sm mt-1" style="color: var(--token-color-success-foreground, #ffffff); opacity: 0.9;">We will respond to your dispatch shortly.</p>
+    </div>
+
+    <!-- Error Message -->
+    <div
+      id="error-message"
+      class="hidden p-4 border rounded-lg"
+      style="background-color: var(--token-color-error, #ef4444); border-color: var(--token-color-error, #ef4444); color: var(--token-color-error-foreground, #ffffff);"
+      role="alert"
+      aria-live="assertive"
+    >
+      <p class="font-medium" id="error-text" style="color: var(--token-color-error-foreground, #ffffff);"></p>
+    </div>
+
+    <!-- Name Field -->
+    <div>
+      <label for="name" class="block text-sm font-medium mb-2 font-mono" style="color: var(--token-color-text-primary, #111827);">
+        Name <span style="color: var(--token-color-error, #ef4444);" aria-label="required">*</span>
+      </label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        required
+        class="w-full px-4 py-3 rounded-lg border transition-colors focus:outline-none font-mono text-sm"
+        style="background-color: var(--token-color-background, #000000); border-color: var(--token-color-border, #e5e7eb); color: var(--token-color-text-primary, #111827);"
+        placeholder="Ada Lovelace"
+        aria-required="true"
+        aria-describedby="name-error"
+      />
+      <span
+        id="name-error"
+        class="mt-1 text-sm hidden font-mono"
+        style="color: var(--token-color-error, #ef4444);"
+        role="alert"
+        aria-live="polite"
+      ></span>
+    </div>
+
+    <!-- Email Field -->
+    <div>
+      <label for="email" class="block text-sm font-medium mb-2 font-mono" style="color: var(--token-color-text-primary, #111827);">
+        Email <span style="color: var(--token-color-error, #ef4444);" aria-label="required">*</span>
+      </label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        required
+        class="w-full px-4 py-3 rounded-lg border transition-colors focus:outline-none font-mono text-sm"
+        style="background-color: var(--token-color-background, #000000); border-color: var(--token-color-border, #e5e7eb); color: var(--token-color-text-primary, #111827);"
+        placeholder="ada@kernel.org"
+        aria-required="true"
+        aria-describedby="email-error"
+      />
+      <span
+        id="email-error"
+        class="mt-1 text-sm hidden font-mono"
+        style="color: var(--token-color-error, #ef4444);"
+        role="alert"
+        aria-live="polite"
+      ></span>
+    </div>
+
+    <!-- Subject Field (optional) -->
+    <div>
+      <label for="subject-field" class="block text-sm font-medium mb-2 font-mono" style="color: var(--token-color-text-primary, #111827);">
+        Subject
+      </label>
+      <input
+        type="text"
+        id="subject-field"
+        name="custom_subject"
+        class="w-full px-4 py-3 rounded-lg border transition-colors focus:outline-none font-mono text-sm"
+        style="background-color: var(--token-color-background, #000000); border-color: var(--token-color-border, #e5e7eb); color: var(--token-color-text-primary, #111827);"
+        placeholder="eBPF Tracepoint Optimization"
+      />
+    </div>
+
+    <!-- Message Field -->
+    <div>
+      <label for="message" class="block text-sm font-medium mb-2 font-mono" style="color: var(--token-color-text-primary, #111827);">
+        Message <span style="color: var(--token-color-error, #ef4444);" aria-label="required">*</span>
+      </label>
+      <textarea
+        id="message"
+        name="message"
+        required
+        rows="5"
+        class="w-full px-4 py-3 rounded-lg border transition-colors focus:outline-none font-mono text-sm resize-y"
+        style="background-color: var(--token-color-background, #000000); border-color: var(--token-color-border, #e5e7eb); color: var(--token-color-text-primary, #111827);"
+        placeholder="Provide technical dispatch details..."
+        aria-required="true"
+        aria-describedby="message-error"
+      ></textarea>
+      <span
+        id="message-error"
+        class="mt-1 text-sm hidden font-mono"
+        style="color: var(--token-color-error, #ef4444);"
+        role="alert"
+        aria-live="polite"
+      ></span>
+    </div>
+
+    <!-- Submit Button -->
+    <button
+      type="submit"
+      id="submit-button"
+      class="w-full px-6 py-3 rounded-lg transition-all font-mono font-bold tracking-wider uppercase focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+      style="background-color: var(--token-color-primary, #22c55e); color: var(--token-color-primary-foreground, #000000); box-shadow: 0 0 15px rgba(34, 197, 94, 0.3);"
+    >
+      <span id="submit-text">Transmit Dispatch</span>
+      <span id="submit-loading" class="hidden">Encrypting &amp; Sending...</span>
+    </button>
+
+    <!-- Alternative Direct Channels -->
+    <div class="pt-4 border-t border-[var(--token-color-border)] flex flex-wrap items-center justify-between gap-3 text-xs font-mono" style="color: var(--token-color-text-muted, #94a3b8);">
+      <span class="text-xs">// DIRECT FREQUENCIES:</span>
+      <div class="flex items-center gap-4">
+        <a 
+          href={linkedinUrl} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="inline-flex items-center gap-1.5 text-[#0ea5e9] hover:text-[#38bdf8] transition-colors"
+        >
+          <Icon name="tabler:brand-linkedin" class="w-4 h-4" />
+          <span>LinkedIn (Joshua Cox)</span>
+        </a>
+        <a 
+          href={githubUrl} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="inline-flex items-center gap-1.5 text-[#22c55e] hover:text-[#4ade80] transition-colors"
+        >
+          <Icon name="tabler:brand-github" class="w-4 h-4" />
+          <span>GitHub</span>
+        </a>
+      </div>
+    </div>
+  </form>
+)}
+
+<script>
+  const form = document.getElementById("contact-form") as HTMLFormElement | null;
+  if (form) {
+    const submitButton = document.getElementById("submit-button") as HTMLButtonElement;
+    const submitText = document.getElementById("submit-text") as HTMLSpanElement;
+    const submitLoading = document.getElementById("submit-loading") as HTMLSpanElement;
+    const successMessage = document.getElementById("success-message") as HTMLDivElement;
+    const errorMessage = document.getElementById("error-message") as HTMLDivElement;
+    const errorText = document.getElementById("error-text") as HTMLParagraphElement;
+
+    const nameInput = document.getElementById("name") as HTMLInputElement;
+    const emailInput = document.getElementById("email") as HTMLInputElement;
+    const messageInput = document.getElementById("message") as HTMLTextAreaElement;
+
+    const nameError = document.getElementById("name-error") as HTMLSpanElement;
+    const emailError = document.getElementById("email-error") as HTMLSpanElement;
+    const messageError = document.getElementById("message-error") as HTMLSpanElement;
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    function showFieldError(input: HTMLInputElement | HTMLTextAreaElement, errorElement: HTMLSpanElement, message: string) {
+      errorElement.textContent = message;
+      errorElement.classList.remove("hidden");
+      input.style.borderColor = "var(--token-color-error, #ef4444)";
+      input.setAttribute("aria-invalid", "true");
+    }
+
+    function clearFieldError(input: HTMLInputElement | HTMLTextAreaElement, errorElement: HTMLSpanElement) {
+      errorElement.textContent = "";
+      errorElement.classList.add("hidden");
+      input.style.borderColor = "var(--token-color-border, #e5e7eb)";
+      input.removeAttribute("aria-invalid");
+    }
+
+    function hideAllMessages() {
+      successMessage.classList.add("hidden");
+      errorMessage.classList.add("hidden");
+    }
+
+    // Input validation listeners
+    nameInput?.addEventListener("blur", () => {
+      if (!nameInput.value.trim()) {
+        showFieldError(nameInput, nameError, "Name is required");
+      } else {
+        clearFieldError(nameInput, nameError);
+      }
+    });
+
+    emailInput?.addEventListener("blur", () => {
+      if (!emailInput.value.trim()) {
+        showFieldError(emailInput, emailError, "Email is required");
+      } else if (!emailRegex.test(emailInput.value.trim())) {
+        showFieldError(emailInput, emailError, "Please enter a valid email address");
+      } else {
+        clearFieldError(emailInput, emailError);
+      }
+    });
+
+    messageInput?.addEventListener("blur", () => {
+      if (!messageInput.value.trim()) {
+        showFieldError(messageInput, messageError, "Message is required");
+      } else if (messageInput.value.trim().length < 10) {
+        showFieldError(messageInput, messageError, "Message must be at least 10 characters");
+      } else {
+        clearFieldError(messageInput, messageError);
+      }
+    });
+
+    // Form submission
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      hideAllMessages();
+
+      // Clear previous errors
+      clearFieldError(nameInput, nameError);
+      clearFieldError(emailInput, emailError);
+      clearFieldError(messageInput, messageError);
+
+      // Validate all fields
+      let isValid = true;
+
+      if (!nameInput.value.trim()) {
+        showFieldError(nameInput, nameError, "Name is required");
+        isValid = false;
+      }
+
+      if (!emailInput.value.trim()) {
+        showFieldError(emailInput, emailError, "Email is required");
+        isValid = false;
+      } else if (!emailRegex.test(emailInput.value.trim())) {
+        showFieldError(emailInput, emailError, "Please enter a valid email address");
+        isValid = false;
+      }
+
+      if (!messageInput.value.trim()) {
+        showFieldError(messageInput, messageError, "Message is required");
+        isValid = false;
+      } else if (messageInput.value.trim().length < 10) {
+        showFieldError(messageInput, messageError, "Message must be at least 10 characters");
+        isValid = false;
+      }
+
+      if (!isValid) {
+        const firstError = form.querySelector('[aria-invalid="true"]') as HTMLElement;
+        firstError?.focus();
+        return;
+      }
+
+      // Submit form
+      submitButton.disabled = true;
+      submitText.classList.add("hidden");
+      submitLoading.classList.remove("hidden");
+
+      try {
+        const formData = new FormData(form);
+        const response = await fetch(form.action, {
+          method: "POST",
+          body: formData,
+          headers: {
+            Accept: "application/json",
+          },
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          const userEmail = emailInput?.value || "";
+          if (typeof (window as any).setEnhancedConversionData === "function" && userEmail) {
+            (window as any).setEnhancedConversionData({ email: userEmail });
+          }
+          if (typeof (window as any).trackTelemetry === "function") {
+            (window as any).trackTelemetry("generate_lead", {
+              lead_type: "contact_form_transmission",
+              subject: (document.getElementById("subject-field") as HTMLInputElement)?.value || "General",
+              value: 100.0,
+              currency: "USD",
+            });
+          }
+          form.reset();
+          successMessage.classList.remove("hidden");
+          successMessage.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        } else {
+          throw new Error(data.message || "Failed to transmit message. Please try again.");
+        }
+      } catch (error) {
+        errorText.textContent = error instanceof Error ? error.message : "An unexpected error occurred.";
+        errorMessage.classList.remove("hidden");
+        errorMessage.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      } finally {
+        submitButton.disabled = false;
+        submitText.classList.remove("hidden");
+        submitLoading.classList.add("hidden");
+      }
+    });
+  }
+</script>

@@ -1,0 +1,387 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <!-- Background Gradients -->
+    <radialGradient id="bg-glow" cx="50%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#041208" stop-opacity="0.9" />
+      <stop offset="45%" stop-color="#020804" stop-opacity="0.95" />
+      <stop offset="85%" stop-color="#000000" stop-opacity="1" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="1" />
+    </radialGradient>
+
+    <!-- Circuit Trace Gradients -->
+    <linearGradient id="trace-grad-1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#14532d" stop-opacity="0.3" />
+      <stop offset="50%" stop-color="#22c55e" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#22EE44" stop-opacity="0.9" />
+    </linearGradient>
+
+    <linearGradient id="trace-grad-cyan" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#083344" stop-opacity="0.3" />
+      <stop offset="60%" stop-color="#06b6d4" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.8" />
+    </linearGradient>
+
+    <!-- Glowing Filters -->
+    <filter id="lightning-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur1" />
+      <feGaussianBlur stdDeviation="8" result="coloredBlur2" />
+      <feGaussianBlur stdDeviation="20" result="coloredBlur3" />
+      <feMerge>
+        <feMergeNode in="coloredBlur3" />
+        <feMergeNode in="coloredBlur2" />
+        <feMergeNode in="coloredBlur1" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <filter id="spark-glow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="4" result="glow" />
+      <feMerge>
+        <feMergeNode in="glow" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <filter id="circuit-subtle" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <!-- Repeated PCB Grid Pattern -->
+    <pattern id="pcb-grid" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M 80 0 L 0 0 0 80" fill="none" stroke="#14532d" stroke-width="0.75" stroke-opacity="0.18" />
+      <circle cx="0" cy="0" r="1.5" fill="#22c55e" fill-opacity="0.25" />
+      <circle cx="80" cy="0" r="1.5" fill="#22c55e" fill-opacity="0.25" />
+      <circle cx="0" cy="80" r="1.5" fill="#22c55e" fill-opacity="0.25" />
+      <circle cx="80" cy="80" r="1.5" fill="#22c55e" fill-opacity="0.25" />
+      <circle cx="40" cy="40" r="0.8" fill="#38bdf8" fill-opacity="0.2" />
+    </pattern>
+
+    <style>
+      @keyframes pulse-lightning {
+        0%, 100% { opacity: 0.85; filter: drop-shadow(0 0 8px #22EE44); }
+        45% { opacity: 0.95; filter: drop-shadow(0 0 16px #22EE44); }
+        48% { opacity: 0.4; }
+        50% { opacity: 1; filter: drop-shadow(0 0 25px #38bdf8); }
+        53% { opacity: 0.7; }
+        75% { opacity: 0.9; filter: drop-shadow(0 0 12px #22EE44); }
+      }
+      @keyframes spark-float {
+        0%, 100% { transform: scale(1); opacity: 0.7; }
+        50% { transform: scale(1.4); opacity: 1; }
+      }
+      @keyframes bus-signal {
+        0% { stroke-dashoffset: 200; }
+        100% { stroke-dashoffset: 0; }
+      }
+      .anim-lightning {
+        animation: pulse-lightning 4s infinite ease-in-out;
+      }
+      .anim-spark {
+        animation: spark-float 2.5s infinite ease-in-out;
+      }
+      .anim-bus {
+        stroke-dasharray: 12 24;
+        animation: bus-signal 8s linear infinite;
+      }
+    </style>
+  </defs>
+
+  <!-- 1. Pure OLED Dark Background -->
+  <rect width="1920" height="1080" fill="#000000" />
+  <rect width="1920" height="1080" fill="url(#bg-glow)" />
+
+  <!-- 2. PCB Substrate Matrix Grid -->
+  <rect width="1920" height="1080" fill="url(#pcb-grid)" />
+
+  <!-- 3. Telemetry Hex & Circuit Annotations (Subtle background labels) -->
+  <g font-family="monospace" font-size="9" fill="#15803d" opacity="0.35" letter-spacing="1.5">
+    <text x="60" y="70">SYS::BUS_CLK_100MHz // VCC_3.3V_OK</text>
+    <text x="60" y="90">0x7F_KRNL_MAP // RING_0_ACTIVE</text>
+    <text x="1600" y="70">eBPF_JIT_TARGET::x86_64</text>
+    <text x="1600" y="90">NET_MESH::WIREGUARD_SEC</text>
+    <text x="80" y="1030">CHASSIS_GND // PCB_LAYER_04_TOP</text>
+    <text x="1620" y="1030">TEKROMANCY_SYS_REV_3.2</text>
+    <text x="960" y="50" text-anchor="middle">CORE_VOLTAGE: 1.15V // PLASMA_ARC_STABILIZED</text>
+  </g>
+
+  <!-- 4. Circuit Board Bus Traces & Microchips -->
+  <!-- Left Processing Cluster -->
+  <g opacity="0.85" filter="url(#circuit-subtle)">
+    <!-- Microchip Die: eBPF Kernel Processor -->
+    <rect x="220" y="240" width="160" height="160" rx="8" fill="#051008" stroke="#22c55e" stroke-width="1.8" />
+    <rect x="235" y="255" width="130" height="130" rx="4" fill="#020804" stroke="#16a34a" stroke-width="1" />
+    <!-- Die details -->
+    <rect x="260" y="280" width="80" height="80" rx="2" fill="#06180c" stroke="#4ade80" stroke-width="0.75" />
+    <text x="300" y="318" font-family="monospace" font-size="10" font-weight="bold" fill="#22EE44" text-anchor="middle" opacity="0.9">KRNL_CORE</text>
+    <text x="300" y="334" font-family="monospace" font-size="8" fill="#86efac" text-anchor="middle" opacity="0.7">eBPF // BPF_JIT</text>
+    <circle cx="300" cy="295" r="3" fill="#22EE44" />
+
+    <!-- Chip Pins -->
+    <g stroke="#22c55e" stroke-width="1.2" opacity="0.7">
+      <!-- Top pins -->
+      <line x1="250" y1="240" x2="250" y2="225" /><line x1="270" y1="240" x2="270" y2="225" />
+      <line x1="290" y1="240" x2="290" y2="225" /><line x1="310" y1="240" x2="310" y2="225" />
+      <line x1="330" y1="240" x2="330" y2="225" /><line x1="350" y1="240" x2="350" y2="225" />
+      <!-- Bottom pins -->
+      <line x1="250" y1="400" x2="250" y2="415" /><line x1="270" y1="400" x2="270" y2="415" />
+      <line x1="290" y1="400" x2="290" y2="415" /><line x1="310" y1="400" x2="310" y2="415" />
+      <line x1="330" y1="400" x2="330" y2="415" /><line x1="350" y1="400" x2="350" y2="415" />
+      <!-- Left pins -->
+      <line x1="220" y1="270" x2="205" y2="270" /><line x1="220" y1="290" x2="205" y2="290" />
+      <line x1="220" y1="310" x2="205" y2="310" /><line x1="220" y1="330" x2="205" y2="330" />
+      <line x1="220" y1="350" x2="205" y2="350" /><line x1="220" y1="370" x2="205" y2="370" />
+      <!-- Right pins -->
+      <line x1="380" y1="270" x2="395" y2="270" /><line x1="380" y1="290" x2="395" y2="290" />
+      <line x1="380" y1="310" x2="395" y2="310" /><line x1="380" y1="330" x2="395" y2="330" />
+      <line x1="380" y1="350" x2="395" y2="350" /><line x1="380" y1="370" x2="395" y2="370" />
+    </g>
+
+    <!-- Outgoing Traces from Left Chip -->
+    <g fill="none" stroke="url(#trace-grad-1)" stroke-width="1.8">
+      <path d="M 205,270 L 140,270 L 90,320 L 90,540 L 160,610 L 260,610" />
+      <path d="M 205,310 L 160,310 L 120,350 L 120,680 L 180,740 L 320,740" />
+      <path d="M 250,225 L 250,160 L 320,90 L 520,90" />
+      <path d="M 290,225 L 290,180 L 360,110 L 640,110" />
+      <path d="M 380,290 L 460,290 L 510,340 L 680,340 L 730,390 L 860,390" />
+      <path d="M 380,330 L 440,330 L 490,380 L 650,380 L 700,430 L 820,430" />
+      <path d="M 310,415 L 310,480 L 360,530 L 520,530" />
+      <path d="M 350,415 L 350,500 L 420,570 L 580,570" />
+    </g>
+  </g>
+
+  <!-- Right Processing Cluster -->
+  <g opacity="0.85" filter="url(#circuit-subtle)">
+    <!-- Microchip Die: Neural Accelerator -->
+    <polygon points="1550,280 1680,280 1720,320 1720,440 1680,480 1550,480 1510,440 1510,320" fill="#040e14" stroke="#0ea5e9" stroke-width="1.8" />
+    <polygon points="1560,295 1670,295 1705,330 1705,430 1670,465 1560,465 1525,430 1525,330" fill="#02080d" stroke="#0284c7" stroke-width="1" />
+    <rect x="1565" y="340" width="100" height="80" rx="4" fill="#081c26" stroke="#38bdf8" stroke-width="0.8" />
+    <text x="1615" y="378" font-family="monospace" font-size="10" font-weight="bold" fill="#38bdf8" text-anchor="middle">vLLM_TENSOR</text>
+    <text x="1615" y="394" font-family="monospace" font-size="8" fill="#7dd3fc" text-anchor="middle" opacity="0.8">PAGED_ATTN // 16x</text>
+
+    <!-- Outgoing Traces from Right Chip -->
+    <g fill="none" stroke="url(#trace-grad-cyan)" stroke-width="1.8">
+      <path d="M 1510,360 L 1420,360 L 1370,410 L 1200,410 L 1150,360 L 1050,360" />
+      <path d="M 1510,400 L 1440,400 L 1390,450 L 1250,450 L 1200,500 L 1080,500" />
+      <path d="M 1615,280 L 1615,190 L 1530,105 L 1350,105" />
+      <path d="M 1660,280 L 1660,170 L 1580,90 L 1420,90" />
+      <path d="M 1720,380 L 1800,380 L 1860,440 L 1860,680 L 1800,740 L 1680,740" />
+      <path d="M 1615,480 L 1615,560 L 1540,635 L 1380,635" />
+    </g>
+  </g>
+
+  <!-- Multi-track Data Buses (Highway routing through the midplane) -->
+  <g fill="none" opacity="0.45">
+    <!-- Top Bus -->
+    <path d="M 400,140 L 600,140 L 660,200 L 1260,200 L 1320,140 L 1520,140" stroke="#22c55e" stroke-width="1.5" class="anim-bus" />
+    <path d="M 390,150 L 590,150 L 650,210 L 1270,210 L 1330,150 L 1530,150" stroke="#38bdf8" stroke-width="1" />
+    <path d="M 380,160 L 580,160 L 640,220 L 1280,220 L 1340,160 L 1540,160" stroke="#22c55e" stroke-width="1" />
+    
+    <!-- Bottom Bus -->
+    <path d="M 280,820 L 520,820 L 580,760 L 1340,760 L 1400,820 L 1640,820" stroke="#22EE44" stroke-width="1.5" class="anim-bus" />
+    <path d="M 290,830 L 530,830 L 590,770 L 1330,770 L 1390,830 L 1630,830" stroke="#06b6d4" stroke-width="1" />
+    <path d="M 300,840 L 540,840 L 600,780 L 1320,780 L 1380,840 L 1620,840" stroke="#22c55e" stroke-width="1" />
+  </g>
+
+  <!-- Circuit Vias, Test Pads & Solder Points -->
+  <g fill="#22EE44" filter="url(#spark-glow)">
+    <!-- Core left vias -->
+    <circle cx="520" cy="90" r="3" /><circle cx="640" cy="110" r="3" />
+    <circle cx="860" cy="390" r="3.5" /><circle cx="820" cy="430" r="3" />
+    <circle cx="520" cy="530" r="3" /><circle cx="580" cy="570" r="3" />
+    <circle cx="260" cy="610" r="3" /><circle cx="320" cy="740" r="3" />
+    <!-- Solder rings -->
+    <circle cx="860" cy="390" r="7" fill="none" stroke="#22EE44" stroke-width="1.2" opacity="0.6" />
+    <circle cx="520" cy="90" r="6" fill="none" stroke="#22EE44" stroke-width="1.2" opacity="0.6" />
+    <circle cx="580" cy="570" r="6" fill="none" stroke="#22EE44" stroke-width="1.2" opacity="0.6" />
+  </g>
+
+  <g fill="#38bdf8" filter="url(#spark-glow)">
+    <!-- Right vias -->
+    <circle cx="1050" cy="360" r="3" /><circle cx="1080" cy="500" r="3" />
+    <circle cx="1350" cy="105" r="3" /><circle cx="1420" cy="90" r="3" />
+    <circle cx="1680" cy="740" r="3.5" /><circle cx="1380" cy="635" r="3" />
+    <!-- Solder rings -->
+    <circle cx="1050" cy="360" r="7" fill="none" stroke="#38bdf8" stroke-width="1.2" opacity="0.6" />
+    <circle cx="1680" cy="740" r="7" fill="none" stroke="#38bdf8" stroke-width="1.2" opacity="0.6" />
+  </g>
+
+  <!-- Surface Mounted Resistor & Capacitor Packages (SMD 0805 components) -->
+  <g fill="#0b1710" stroke="#4ade80" stroke-width="1" opacity="0.75">
+    <rect x="470" y="285" width="22" height="10" rx="1.5" />
+    <rect x="500" y="335" width="22" height="10" rx="1.5" />
+    <rect x="710" y="385" width="22" height="10" rx="1.5" />
+    <rect x="1430" y="395" width="22" height="10" rx="1.5" stroke="#38bdf8" />
+    <rect x="1460" y="355" width="22" height="10" rx="1.5" stroke="#38bdf8" />
+    <rect x="1210" y="445" width="22" height="10" rx="1.5" stroke="#38bdf8" />
+  </g>
+
+  <!-- 5. HIGH-VOLTAGE CYBERNETIC LIGHTNING DISCHARGES -->
+  <!-- Main Diagonal Arc: Atmospheric high-energy discharge across upper board -->
+  <g class="anim-lightning">
+    <!-- Atmospheric Ambient Corona -->
+    <path 
+      d="M -20,80 L 140,110 L 250,90 L 380,180 L 460,150 L 590,240 L 720,210 L 860,330 L 980,280 L 1140,410 L 1290,370 L 1440,510 L 1600,470 L 1760,620 L 1940,580"
+      stroke="#10b981"
+      stroke-width="16"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      fill="none"
+      opacity="0.18"
+      filter="url(#lightning-glow)"
+    />
+    <!-- Outer Glow -->
+    <path 
+      d="M -20,80 L 140,110 L 250,90 L 380,180 L 460,150 L 590,240 L 720,210 L 860,330 L 980,280 L 1140,410 L 1290,370 L 1440,510 L 1600,470 L 1760,620 L 1940,580"
+      stroke="#22EE44"
+      stroke-width="6"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      fill="none"
+      opacity="0.75"
+      filter="url(#lightning-glow)"
+    />
+    <!-- Intense Tungsten White Core -->
+    <path 
+      d="M -20,80 L 140,110 L 250,90 L 380,180 L 460,150 L 590,240 L 720,210 L 860,330 L 980,280 L 1140,410 L 1290,370 L 1440,510 L 1600,470 L 1760,620 L 1940,580"
+      stroke="#ffffff"
+      stroke-width="2.2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      fill="none"
+      opacity="0.95"
+    />
+  </g>
+
+  <!-- Fork 1: Branching into the eBPF Kernel Processor (Grounding arc) -->
+  <g class="anim-lightning" style="animation-delay: 0.5s;">
+    <!-- Outer Arc -->
+    <path 
+      d="M 590,240 L 520,310 L 430,280 L 370,340 L 300,320"
+      stroke="#22EE44"
+      stroke-width="4.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      fill="none"
+      opacity="0.7"
+      filter="url(#lightning-glow)"
+    />
+    <!-- Core Arc -->
+    <path 
+      d="M 590,240 L 520,310 L 430,280 L 370,340 L 300,320"
+      stroke="#ffffff"
+      stroke-width="1.8"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      fill="none"
+      opacity="0.95"
+    />
+  </g>
+
+  <!-- Fork 2: Branching across Center to Neural Accelerator -->
+  <g class="anim-lightning" style="animation-delay: 1.2s;">
+    <path 
+      d="M 1140,410 L 1210,330 L 1340,360 L 1420,310 L 1530,340 L 1615,360"
+      stroke="#06b6d4"
+      stroke-width="4"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      fill="none"
+      opacity="0.75"
+      filter="url(#lightning-glow)"
+    />
+    <path 
+      d="M 1140,410 L 1210,330 L 1340,360 L 1420,310 L 1530,340 L 1615,360"
+      stroke="#ffffff"
+      stroke-width="1.6"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      fill="none"
+      opacity="0.95"
+    />
+  </g>
+
+  <!-- Secondary Counter-Phase Lightning Strike across Bottom Power Plane -->
+  <g class="anim-lightning" style="animation-delay: 2.1s;">
+    <!-- Outer Glow -->
+    <path 
+      d="M 100,980 L 260,940 L 390,990 L 550,910 L 710,950 L 890,870 L 1060,930 L 1240,840 L 1410,900 L 1580,820 L 1750,880 L 1940,810"
+      stroke="#22c55e"
+      stroke-width="5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      fill="none"
+      opacity="0.6"
+      filter="url(#lightning-glow)"
+    />
+    <!-- Core -->
+    <path 
+      d="M 100,980 L 260,940 L 390,990 L 550,910 L 710,950 L 890,870 L 1060,930 L 1240,840 L 1410,900 L 1580,820 L 1750,880 L 1940,810"
+      stroke="#ffffff"
+      stroke-width="1.8"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      fill="none"
+      opacity="0.9"
+    />
+  </g>
+
+  <!-- Bottom Fork: Vertical discharge bolt into Motherboard Ground Plane -->
+  <g class="anim-lightning" style="animation-delay: 2.8s;">
+    <path 
+      d="M 890,870 L 870,760 L 820,710 L 850,620 L 800,560 L 820,430"
+      stroke="#22EE44"
+      stroke-width="3.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      fill="none"
+      opacity="0.7"
+      filter="url(#lightning-glow)"
+    />
+    <path 
+      d="M 890,870 L 870,760 L 820,710 L 850,620 L 800,560 L 820,430"
+      stroke="#ffffff"
+      stroke-width="1.4"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      fill="none"
+      opacity="0.9"
+    />
+  </g>
+
+  <!-- High-Energy Plasma Spark Nodes (At junction collision points) -->
+  <g class="anim-spark">
+    <!-- Top-left strike contact -->
+    <circle cx="380" cy="180" r="4.5" fill="#ffffff" filter="url(#lightning-glow)" />
+    <circle cx="380" cy="180" r="14" fill="none" stroke="#22EE44" stroke-width="1.5" opacity="0.6" />
+    
+    <!-- Mid-board collision -->
+    <circle cx="860" cy="330" r="5" fill="#ffffff" filter="url(#lightning-glow)" />
+    <circle cx="860" cy="330" r="16" fill="none" stroke="#22EE44" stroke-width="1.8" opacity="0.7" />
+
+    <!-- Branch nexus point -->
+    <circle cx="1140" cy="410" r="5" fill="#ffffff" filter="url(#lightning-glow)" />
+    <circle cx="1140" cy="410" r="18" fill="none" stroke="#38bdf8" stroke-width="1.8" opacity="0.7" />
+
+    <!-- Neural cluster contact -->
+    <circle cx="1600" cy="470" r="4.5" fill="#ffffff" filter="url(#lightning-glow)" />
+    <circle cx="1600" cy="470" r="15" fill="none" stroke="#38bdf8" stroke-width="1.5" opacity="0.6" />
+
+    <!-- Bottom plane nexus point -->
+    <circle cx="890" cy="870" r="4" fill="#ffffff" filter="url(#lightning-glow)" />
+    <circle cx="890" cy="870" r="13" fill="none" stroke="#22EE44" stroke-width="1.5" opacity="0.6" />
+  </g>
+
+  <!-- 6. Dark Reading Vignette (Soft dark gradient mask to preserve foreground text contrast) -->
+  <radialGradient id="hero-readability-scrim" cx="50%" cy="45%" r="50%">
+    <stop offset="0%" stop-color="#000000" stop-opacity="0.72" />
+    <stop offset="50%" stop-color="#000000" stop-opacity="0.5" />
+    <stop offset="85%" stop-color="#000000" stop-opacity="0.1" />
+    <stop offset="100%" stop-color="#000000" stop-opacity="0.0" />
+  </radialGradient>
+  <rect width="1920" height="1080" fill="url(#hero-readability-scrim)" />
+
+</svg>

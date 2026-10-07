@@ -1,0 +1,537 @@
+---
+import { Icon } from "astro-icon/components";
+import ThemeSwitcher from "./ThemeSwitcher.tsx";
+import ModeToggle from "./ModeToggle.tsx";
+import CyberTelemetryBar from "./CyberTelemetryBar.astro";
+
+// Cyberpunk Frame & Modular SVGs
+import wordmarkSvg from "../assets/nav/tekromancy-wordmark.svg";
+import endcapLeftSvg from "../assets/nav/nav-endcap-left.svg";
+import endcapRightSvg from "../assets/nav/nav-endcap-right.svg";
+import dividerSvg from "../assets/nav/nav-divider.svg";
+import borderTopSvg from "../assets/nav/nav-border-top.svg";
+import borderBottomSvg from "../assets/nav/nav-border-bottom.svg";
+import navBgCyberSvg from "../assets/nav/nav-bg-cyber.svg";
+
+// Stylized Menu Item Words
+import menuArticlesSvg from "../assets/nav/menu-articles.svg";
+import menuIncantationsSvg from "../assets/nav/menu-incantations.svg";
+import menuSystemsSvg from "../assets/nav/menu-systems.svg";
+import menuAppsSvg from "../assets/nav/menu-apps.svg";
+import menuLinuxSvg from "../assets/nav/menu-linux.svg";
+import menuK8sSvg from "../assets/nav/menu-k8s.svg";
+import menuAimlSvg from "../assets/nav/menu-aiml.svg";
+import menuSecSvg from "../assets/nav/menu-security.svg";
+import menuEventsSvg from "../assets/nav/menu-events.svg";
+import menuAboutSvg from "../assets/nav/menu-about.svg";
+import menuTransmitSvg from "../assets/nav/menu-transmit.svg";
+
+const primaryNavItems = [
+  { href: "https://tekromancy.com/blog", label: "Articles", svg: menuArticlesSvg, desc: "Field Dispatches & Research" },
+  { href: "/", label: "Incantations", svg: menuIncantationsSvg, desc: "Shell Oneliners & AI Prompts" },
+  { href: "https://tekromancy.com/apps", label: "Apps", svg: menuAppsSvg, desc: "Mobile & Sovereign Software" },
+  { href: "https://tekromancy.com/events", label: "Events", svg: menuEventsSvg, desc: "Field Operations & CTF", isLive: true },
+  { href: "https://tekromancy.com/about", label: "About", svg: menuAboutSvg, desc: "Tekromancy Manifesto" },
+];
+
+const systemDropdownItems = [
+  { href: "https://tekromancy.com/tags/linux", label: "Linux", svg: menuLinuxSvg, desc: "Kernel Internals & eBPF", shortDesc: "Kernel Internals" },
+  { href: "https://tekromancy.com/tags/kubernetes", label: "Kubernetes", svg: menuK8sSvg, desc: "Container Cloud Orchestration", shortDesc: "Cloud Native" },
+  { href: "https://tekromancy.com/tags/ai-ml", label: "AI / ML", svg: menuAimlSvg, desc: "vLLM, CUDA & Neural Models", shortDesc: "Neural Models" },
+  { href: "https://tekromancy.com/tags/security", label: "SecOps", svg: menuSecSvg, desc: "Hardening & CTF Wargames", shortDesc: "Hardening & CTF" },
+];
+---
+
+<header
+  class="w-full sticky top-0 z-50 select-none backdrop-blur-2xl transition-all"
+  role="banner"
+  style="background-color: rgba(0, 0, 0, 0.94);"
+>
+  <!-- Cyberpunk Live Client Machine Telemetry HUD Header Bar -->
+  <CyberTelemetryBar />
+
+  <!-- TOP LIGHTNING BORDER: High-voltage continuous lightning dancing across the entire top edge -->
+  <div
+    class="cyber-theme-element w-full h-[8px] sm:h-[10px] z-30 pointer-events-none relative shadow-[0_0_20px_rgba(34,197,94,0.7)]"
+    style={`background-image: url('${borderTopSvg.src}'); background-repeat: repeat-x; background-size: 160px 100%; border-bottom: 1px solid rgba(34, 197, 94, 0.45);`}
+    aria-hidden="true"
+  ></div>
+
+  <!-- Main Cyberpunk Navigation Cockpit Container -->
+  <div class="relative w-full max-w-[1600px] mx-auto px-2 sm:px-4 py-1 sm:py-1.5">
+    <div class="relative flex items-stretch h-[56px] sm:h-[62px]">
+
+      <!-- 1. LEFT ENDCAP: Complete left border with spark plug terminals & lightning arcs -->
+      <div class="cyber-theme-element relative h-full w-[32px] sm:w-[44px] shrink-0 z-20 pointer-events-none">
+        <img
+          src={endcapLeftSvg.src}
+          alt=""
+          aria-hidden="true"
+          class="h-full w-full object-fill drop-shadow-[0_0_12px_rgba(34,197,94,0.8)]"
+        />
+      </div>
+
+      <!-- 2. MIDDLE CHASSIS: Circuit Motherboard Background, Inner Lightning Rails & Controls -->
+      <div class="relative flex-1 h-full min-w-0 flex items-center justify-between px-1.5 sm:px-3 z-10 -ml-[1px] -mr-[1px]">
+
+        <!-- Cyberpunk Motherboard Background (OLED Black base with Glowing PCB Circuit Traces) -->
+        <div
+          class="cyber-theme-element absolute -inset-x-1 inset-y-0 z-0 pointer-events-none"
+          style={`background-color: #000000; background-image: url('${navBgCyberSvg.src}'); background-repeat: repeat-x; background-size: auto 100%; box-shadow: inset 0 0 35px rgba(34, 197, 94, 0.12);`}
+          aria-hidden="true"
+        ></div>
+
+        <!-- Inner Top Lightning Rail (Directly connects left and right endcap top anchors) -->
+        <div
+          class="cyber-theme-element absolute top-0 -left-1 -right-1 h-[6px] z-20 pointer-events-none opacity-90 shadow-[0_1px_8px_rgba(34,197,94,0.4)]"
+          style={`background-image: url('${borderTopSvg.src}'); background-repeat: repeat-x; background-size: 160px 100%;`}
+          aria-hidden="true"
+        ></div>
+
+        <!-- Inner Bottom Lightning Rail (Directly connects left and right endcap bottom anchors) -->
+        <div
+          class="cyber-theme-element absolute bottom-0 -left-1 -right-1 h-[6px] z-20 pointer-events-none opacity-90 shadow-[0_-1px_8px_rgba(34,197,94,0.4)]"
+          style={`background-image: url('${borderBottomSvg.src}'); background-repeat: repeat-x; background-size: 160px 100%;`}
+          aria-hidden="true"
+        ></div>
+
+        <!-- Inner Navigation Content (Above Background & Borders) -->
+        <div class="relative z-30 w-full h-full flex items-center justify-between gap-1 sm:gap-2">
+
+          <!-- Left: Wide Stylized Tekromancy Wordmark -->
+          <div class="flex items-center gap-2 shrink-0">
+            <a
+              href="https://tekromancy.com"
+              class="cyber-theme-element group flex items-center shrink-0 transition-transform duration-150 hover:scale-[1.02]"
+              aria-label="Tekromancy - Core Network"
+              title="Return to Tekromancy Core"
+            >
+              <img
+                src={wordmarkSvg.src}
+                alt="Tekromancy"
+                class="h-7 sm:h-9 w-auto max-w-[165px] sm:max-w-[240px] object-contain drop-shadow-[0_0_8px_rgba(34,197,94,0.45)] group-hover:drop-shadow-[0_0_18px_rgba(34,197,94,0.85)] transition-all"
+              />
+              <span class="sr-only">Tekromancy</span>
+            </a>
+            <a
+              href="/"
+              class="hidden sm:inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono font-bold tracking-widest text-[#a855f7] bg-[#a855f7]/15 border border-[#a855f7]/40 uppercase hover:bg-[#a855f7]/25 transition-all shadow-[0_0_10px_rgba(168,85,247,0.3)]"
+            >
+              INCANTATIONS
+            </a>
+          </div>
+
+          <!-- Divider between Logo and Menu Items -->
+          <img
+            src={dividerSvg.src}
+            alt=""
+            aria-hidden="true"
+            class="cyber-theme-element h-6 sm:h-8 w-auto shrink-0 hidden xl:block mx-1 opacity-80 pointer-events-none"
+          />
+
+          <!-- Middle: Menu Items (Graphic Words) -->
+          <nav class="cyber-theme-element hidden lg:flex items-center gap-1 xl:gap-1.5 2xl:gap-2 shrink-0" aria-label="Main navigation">
+            <!-- 1. Articles -->
+            <a
+              href="https://tekromancy.com/blog"
+              class="group relative inline-block transition-transform duration-150 hover:scale-105"
+              aria-label="Articles"
+            >
+              <img
+                src={menuArticlesSvg.src}
+                alt="Articles"
+                class="h-6 xl:h-7 w-auto object-contain transition-all drop-shadow-[0_0_4px_rgba(34,197,94,0.25)] group-hover:drop-shadow-[0_0_14px_rgba(34,197,94,0.75)]"
+              />
+              <span class="sr-only">Articles</span>
+            </a>
+
+            <!-- 2. Incantations -->
+            <a
+              href="/"
+              class="group relative inline-block transition-transform duration-150 hover:scale-105"
+              aria-label="Incantations"
+            >
+              <img
+                src={menuIncantationsSvg.src}
+                alt="Incantations"
+                class="h-6 xl:h-7 w-auto object-contain transition-all drop-shadow-[0_0_4px_rgba(168,85,247,0.35)] group-hover:drop-shadow-[0_0_16px_rgba(192,132,252,0.85)]"
+              />
+              <span class="sr-only">Incantations</span>
+            </a>
+
+            <!-- 3. Combined Systems Dropdown (Linux, Kubernetes, AI/ML, SecOps) -->
+            <div class="relative group/dropdown flex items-center self-center" id="desktop-systems-dropdown-container">
+              <button
+                type="button"
+                id="desktop-systems-menu-btn"
+                class="group relative flex items-center justify-center p-0 m-0 border-0 bg-transparent transition-transform duration-150 hover:scale-105 focus:outline-none cursor-pointer leading-none"
+                style="margin: 0; padding: 0; border: none; background: transparent; line-height: 0;"
+                aria-expanded="false"
+                aria-haspopup="true"
+                aria-label="Systems: Linux, Kubernetes, AI/ML, SecOps"
+              >
+                <img
+                  src={menuSystemsSvg.src}
+                  alt="Systems"
+                  class="h-6 xl:h-7 w-auto object-contain transition-all drop-shadow-[0_0_4px_rgba(34,197,94,0.25)] group-hover/dropdown:drop-shadow-[0_0_14px_rgba(34,197,94,0.75)] block"
+                />
+                <span class="sr-only">Systems Menu</span>
+              </button>
+
+              <!-- Systems Flyout Menu Panel -->
+              <div
+                id="desktop-systems-menu"
+                class="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-72 invisible opacity-0 translate-y-1 group-hover/dropdown:visible group-hover/dropdown:opacity-100 group-hover/dropdown:translate-y-0 group-focus-within/dropdown:visible group-focus-within/dropdown:opacity-100 group-focus-within/dropdown:translate-y-0 transition-all duration-150 z-50 pointer-events-none group-hover/dropdown:pointer-events-auto group-focus-within/dropdown:pointer-events-auto"
+                role="menu"
+                aria-label="Core Systems"
+              >
+                <div
+                  class="p-2 rounded-xl border border-[#22c55e]/45 backdrop-blur-2xl bg-[#040905]/98 shadow-[0_12px_36px_rgba(0,0,0,0.9),0_0_24px_rgba(34,197,94,0.25)]"
+                  style={`background-image: url('${navBgCyberSvg.src}'); background-repeat: repeat; background-size: auto 100px;`}
+                >
+                  <div class="px-3 py-1.5 border-b border-[#22c55e]/25 text-[10px] font-mono tracking-wider flex justify-between items-center text-[#22c55e] mb-1">
+                    <span class="flex items-center gap-1.5">
+                      <span class="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-ping inline-block"></span>
+                      // CORE_SYSTEMS_DOMAINS //
+                    </span>
+                    <span class="opacity-70 text-[9px]">4 DOMAINS</span>
+                  </div>
+                  <div class="space-y-1">
+                    {systemDropdownItems.map((item) => (
+                      <a
+                        href={item.href}
+                        class="flex items-center justify-between p-2 rounded-lg border border-transparent hover:border-[#22c55e]/50 hover:bg-[#22c55e]/15 transition-all group/item"
+                        role="menuitem"
+                      >
+                        <div class="flex items-center gap-2">
+                          <img
+                            src={item.svg.src}
+                            alt={item.label}
+                            class="h-6 w-auto object-contain drop-shadow-[0_0_4px_rgba(34,197,94,0.3)] group-hover/item:drop-shadow-[0_0_10px_rgba(34,197,94,0.8)] transition-all"
+                          />
+                        </div>
+                        <span class="text-[10px] font-mono text-[var(--token-color-text-muted)] group-hover/item:text-white transition-colors">
+                          {item.shortDesc}
+                        </span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. Apps -->
+            <a
+              href="https://tekromancy.com/apps"
+              class="group relative inline-block transition-transform duration-150 hover:scale-105"
+              aria-label="Apps"
+            >
+              <img
+                src={menuAppsSvg.src}
+                alt="Apps"
+                class="h-6 xl:h-7 w-auto object-contain transition-all drop-shadow-[0_0_4px_rgba(34,197,94,0.25)] group-hover:drop-shadow-[0_0_14px_rgba(34,197,94,0.75)]"
+              />
+              <span class="sr-only">Apps</span>
+            </a>
+
+            <!-- 5. Events -->
+            <a
+              href="https://tekromancy.com/events"
+              class="group relative inline-block transition-transform duration-150 hover:scale-105"
+              aria-label="Events"
+            >
+              <img
+                src={menuEventsSvg.src}
+                alt="Events"
+                class="h-6 xl:h-7 w-auto object-contain transition-all drop-shadow-[0_0_8px_rgba(251,191,36,0.6)] group-hover:drop-shadow-[0_0_18px_rgba(251,191,36,0.95)]"
+              />
+              <span class="absolute -top-1 -right-1 flex h-2.5 w-2.5 pointer-events-none">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-[#fbbf24]"></span>
+                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#fbbf24] shadow-[0_0_6px_#fbbf24]"></span>
+              </span>
+              <span class="sr-only">Events</span>
+            </a>
+
+            <!-- 6. About -->
+            <a
+              href="https://tekromancy.com/about"
+              class="group relative inline-block transition-transform duration-150 hover:scale-105"
+              aria-label="About"
+            >
+              <img
+                src={menuAboutSvg.src}
+                alt="About"
+                class="h-6 xl:h-7 w-auto object-contain transition-all drop-shadow-[0_0_4px_rgba(34,197,94,0.25)] group-hover:drop-shadow-[0_0_14px_rgba(34,197,94,0.75)]"
+              />
+              <span class="sr-only">About</span>
+            </a>
+          </nav>
+
+          <!-- Divider between Menu Items and Utilities -->
+          <img
+            src={dividerSvg.src}
+            alt=""
+            aria-hidden="true"
+            class="cyber-theme-element h-6 sm:h-8 w-auto shrink-0 hidden lg:block mx-1 opacity-80 pointer-events-none"
+          />
+
+          <!-- Right Controls: Transmit Button + Divider + Theme Switcher / Mobile Button -->
+          <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+            <!-- Transmit Button -->
+            <a
+              href="/contact"
+              class="cyber-theme-element group block transition-transform duration-150 hover:scale-105"
+              aria-label="Transmit"
+            >
+              <img
+                src={menuTransmitSvg.src}
+                alt="Transmit"
+                class="h-6 sm:h-7 w-auto object-contain drop-shadow-[0_0_8px_rgba(34,197,94,0.35)] group-hover:drop-shadow-[0_0_18px_rgba(56,189,248,0.85)] transition-all"
+              />
+              <span class="sr-only">Transmit</span>
+            </a>
+
+            <!-- Divider -->
+            <img
+              src={dividerSvg.src}
+              alt=""
+              aria-hidden="true"
+              class="cyber-theme-element h-5 sm:h-7 w-auto shrink-0 hidden sm:block opacity-60 pointer-events-none"
+            />
+
+            <!-- Theme Switcher & Mode Toggle Module -->
+            <div class="no-cyber-filter flex items-center gap-1 p-0.5 sm:p-1 rounded-lg border border-[var(--token-color-border)] bg-[#000000]/90 shadow-[0_0_10px_rgba(0,0,0,0.3)]">
+              <ModeToggle client:load />
+              <ThemeSwitcher client:load />
+            </div>
+
+            <!-- Mobile Quick-Access Events Button -->
+            <a
+              href="https://tekromancy.com/events"
+              class="lg:hidden cyber-theme-element group flex items-center gap-1.5 px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-lg border border-[#fbbf24]/50 bg-[#000000] text-[#fbbf24] hover:border-[#fbbf24] hover:shadow-[0_0_12px_rgba(251,191,36,0.6)] transition-all text-[11px] font-mono font-bold shrink-0"
+              aria-label="Events and Field Operations"
+            >
+              <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-[#fbbf24]"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-[#fbbf24]"></span>
+              </span>
+              <span>EVENTS</span>
+            </a>
+
+            <!-- Mobile Navigation Console Toggle Button -->
+            <button
+              type="button"
+              id="mobile-menu-button"
+              class="cyber-theme-element lg:hidden p-1.5 sm:p-2 rounded-lg border border-[#22c55e]/40 bg-[#000000] text-[#22c55e] hover:border-[#22c55e] hover:shadow-[0_0_12px_rgba(34,197,94,0.5)] transition-all ml-0.5"
+              aria-label="Toggle Navigation Console"
+              aria-expanded="false"
+              aria-controls="mobile-menu"
+            >
+              <Icon name="tabler:terminal-2" class="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 3. RIGHT ENDCAP: Complete right border with spark plug terminals & lightning arcs -->
+      <div class="cyber-theme-element relative h-full w-[32px] sm:w-[44px] shrink-0 z-20 pointer-events-none">
+        <img
+          src={endcapRightSvg.src}
+          alt=""
+          aria-hidden="true"
+          class="h-full w-full object-fill drop-shadow-[0_0_12px_rgba(56,189,248,0.8)]"
+        />
+      </div>
+
+    </div>
+  </div>
+
+  <!-- BOTTOM LIGHTNING BORDER: High-voltage continuous lightning dancing across the entire bottom edge -->
+  <div
+    class="cyber-theme-element w-full h-[8px] sm:h-[10px] z-30 pointer-events-none relative shadow-[0_4px_24px_rgba(34,197,94,0.6)]"
+    style={`background-image: url('${borderBottomSvg.src}'); background-repeat: repeat-x; background-size: 160px 100%; border-top: 1px solid rgba(34, 197, 94, 0.45);`}
+    aria-hidden="true"
+  ></div>
+
+  <!-- Cyberpunk Mobile Deck Console (Drawer) -->
+  <div
+    id="mobile-menu"
+    class="cyber-theme-element hidden lg:hidden w-full max-w-[1600px] mx-auto mt-2 rounded-xl border overflow-hidden backdrop-blur-2xl transition-all shadow-[0_10px_30px_rgba(0,0,0,0.8)]"
+    role="menu"
+    aria-labelledby="mobile-menu-button"
+    style={`background-color: rgba(0, 0, 0, 0.96); background-image: url('${navBgCyberSvg.src}'); background-repeat: repeat-x; background-size: auto 80px; border-color: rgba(34, 197, 94, 0.45); box-shadow: 0 0 25px rgba(34, 197, 94, 0.15);`}
+  >
+    <!-- Console Status Sub-header -->
+    <div class="px-4 py-2 border-b text-[10px] font-mono tracking-wider flex justify-between items-center bg-[#000000]/80" style="border-color: rgba(34, 197, 94, 0.25); color: #22c55e;">
+      <span class="flex items-center gap-1.5">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-ping inline-block"></span>
+        // CYBER_DECK_NAVIGATOR //
+      </span>
+      <span class="opacity-70">STATUS::ONLINE</span>
+    </div>
+
+    <!-- Stylized Word Badges in Mobile Grid -->
+    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 p-4 bg-[#000000]/70" role="list">
+      {primaryNavItems.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            class="relative flex items-center justify-between p-3 rounded-xl border transition-all"
+            style={item.isLive 
+              ? "background-color: rgba(18, 14, 4, 0.95); border-color: rgba(251, 191, 36, 0.45); box-shadow: inset 0 0 15px rgba(251, 191, 36, 0.1);" 
+              : "background-color: rgba(4, 9, 5, 0.9); border-color: rgba(34, 197, 94, 0.25);"}
+            onmouseenter={(e) => {
+              e.currentTarget.style.borderColor = item.isLive ? 'rgba(251, 191, 36, 0.9)' : 'rgba(34, 197, 94, 0.8)';
+              e.currentTarget.style.backgroundColor = item.isLive ? 'rgba(251, 191, 36, 0.2)' : 'rgba(34, 197, 94, 0.15)';
+              e.currentTarget.style.boxShadow = item.isLive ? '0 0 18px rgba(251, 191, 36, 0.4)' : '0 0 15px rgba(34, 197, 94, 0.3)';
+            }}
+            onmouseleave={(e) => {
+              e.currentTarget.style.borderColor = item.isLive ? 'rgba(251, 191, 36, 0.45)' : 'rgba(34, 197, 94, 0.25)';
+              e.currentTarget.style.backgroundColor = item.isLive ? 'rgba(18, 14, 4, 0.95)' : 'rgba(4, 9, 5, 0.9)';
+              e.currentTarget.style.boxShadow = item.isLive ? 'inset 0 0 15px rgba(251, 191, 36, 0.1)' : 'none';
+            }}
+            role="menuitem"
+          >
+            <!-- Stylized Wordmark SVG -->
+            <div class="relative flex items-center gap-2">
+              <img src={item.svg.src} alt={item.label} class="h-7 sm:h-8 w-auto object-contain drop-shadow-[0_0_6px_rgba(34,197,94,0.3)]" />
+              {item.isLive && (
+                <span class="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-[#fbbf24]/20 border border-[#fbbf24]/60 text-[#fbbf24] animate-pulse">
+                  ACTIVE
+                </span>
+              )}
+            </div>
+            <span class="text-[11px] font-mono text-[var(--token-color-text-muted)]">{item.desc}</span>
+            <span class="sr-only">{item.label}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Combined Core Systems Section in Mobile Drawer -->
+    <div class="px-4 pb-4">
+      <div class="px-2 py-1 text-[10px] font-mono tracking-wider flex justify-between items-center text-[#22c55e] mb-2 border-t border-[#22c55e]/20 pt-3">
+        <span class="flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-ping inline-block"></span>
+          // CORE_SYSTEMS_DOMAINS //
+        </span>
+        <span class="opacity-70 text-[9px]">4 DOMAINS</span>
+      </div>
+      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2" role="list">
+        {systemDropdownItems.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="relative flex items-center justify-between p-2.5 rounded-xl border transition-all"
+              style="background-color: rgba(4, 9, 5, 0.9); border-color: rgba(34, 197, 94, 0.25);"
+              onmouseenter={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(34, 197, 94, 0.8)';
+                e.currentTarget.style.backgroundColor = 'rgba(34, 197, 94, 0.15)';
+              }}
+              onmouseleave={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(34, 197, 94, 0.25)';
+                e.currentTarget.style.backgroundColor = 'rgba(4, 9, 5, 0.9)';
+              }}
+              role="menuitem"
+            >
+              <div class="flex items-center gap-2">
+                <img src={item.svg.src} alt={item.label} class="h-6 sm:h-7 w-auto object-contain drop-shadow-[0_0_6px_rgba(34,197,94,0.3)]" />
+              </div>
+              <span class="text-[10px] font-mono text-[var(--token-color-text-muted)]">{item.desc}</span>
+              <span class="sr-only">{item.label}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <!-- Bottom Mobile Transmit & Control Deck -->
+    <div class="p-4 border-t flex flex-wrap items-center justify-between gap-3 bg-[#000000]/80" style="border-color: rgba(34, 197, 94, 0.25);">
+      <a
+        href="/contact"
+        class="inline-block transition-transform hover:scale-105"
+        aria-label="Transmit"
+      >
+        <img src={menuTransmitSvg.src} alt="Transmit" class="h-8 w-auto drop-shadow-[0_0_10px_rgba(34,197,94,0.4)]" />
+        <span class="sr-only">Transmit</span>
+      </a>
+      <div class="flex items-center gap-2 p-1 rounded-lg border border-[#22c55e]/35 bg-[#000000]">
+        <ModeToggle client:load />
+        <ThemeSwitcher client:load />
+      </div>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  (function() {
+    function initMenu() {
+      var button = document.getElementById('mobile-menu-button');
+      var menu = document.getElementById('mobile-menu');
+
+      if (button && menu) {
+        button.onclick = function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          var isExpanded = button.getAttribute('aria-expanded') === 'true';
+          button.setAttribute('aria-expanded', String(!isExpanded));
+          if (isExpanded) {
+            menu.classList.add('hidden');
+          } else {
+            menu.classList.remove('hidden');
+          }
+        };
+      }
+
+      // Desktop Systems Dropdown click/touch/keyboard handler
+      var sysBtn = document.getElementById('desktop-systems-menu-btn');
+      var sysMenu = document.getElementById('desktop-systems-menu');
+      if (sysBtn && sysMenu) {
+        sysBtn.onclick = function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          var isExpanded = sysBtn.getAttribute('aria-expanded') === 'true';
+          sysBtn.setAttribute('aria-expanded', String(!isExpanded));
+          if (isExpanded) {
+            sysMenu.classList.remove('dropdown-force-open');
+          } else {
+            sysMenu.classList.add('dropdown-force-open');
+          }
+        };
+
+        document.addEventListener('click', function(e) {
+          if (!sysBtn.contains(e.target) && !sysMenu.contains(e.target)) {
+            sysBtn.setAttribute('aria-expanded', 'false');
+            sysMenu.classList.remove('dropdown-force-open');
+          }
+        });
+
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') {
+            sysBtn.setAttribute('aria-expanded', 'false');
+            sysMenu.classList.remove('dropdown-force-open');
+          }
+        });
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initMenu);
+    } else {
+      setTimeout(initMenu, 0);
+    }
+
+    document.addEventListener('astro:page-load', initMenu);
+    document.addEventListener('astro:after-swap', initMenu);
+  })();
+</script>
+
+<style>
+  .dropdown-force-open {
+    visibility: visible !important;
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    pointer-events: auto !important;
+  }
+</style>

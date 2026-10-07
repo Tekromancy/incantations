@@ -1,0 +1,17 @@
+{
+  "name": "incantations-monorepo",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.9.1",
+  "scripts": {
+    "dev": "pnpm --filter @incantations/web dev",
+    "build": "pnpm --filter @incantations/web build",
+    "preview": "pnpm --filter @incantations/web preview",
+    "lint": "pnpm --filter @incantations/web lint",
+    "check": "pnpm --filter @incantations/web check"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

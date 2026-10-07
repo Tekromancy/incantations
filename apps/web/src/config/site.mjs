@@ -1,0 +1,17 @@
+export const SITE = {
+  title: "Tekromancy Incantations",
+  subtitle: "The Arcane Design Pattern Grimoire",
+  description: "The complete Gang of Four design patterns and software architectural incantations across 140+ programming languages.",
+  defaultLanguage: "en",
+  url: "https://incantations.tekromancy.com",
+  author: "Joshua Edward McLaughlin Cox",
+  linkedin: "https://www.linkedin.com/in/coxjosh/",
+  github: "https://github.com/Tekromancy/incantations/",
+  ogImage: "/og-image.png",
+  twitter: "@tekromancy",
+  googleAnalyticsId: "G-YBFSBJRJK8",
+  googleAnalyticsPropertyId: "408486434",
+  googleAdsenseClientId: "ca-pub-8973108060277483",
+  googleAppId: "554699267",
+  web3formsAccessKey: "",
+};
