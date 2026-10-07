@@ -1,0 +1,12 @@
+auto-install-peers=true
+shamefully-hoist=false
+build-fails-context=null
+
+# Approve builds for native dependencies
+only-built-dependencies[]=@parcel/watcher
+only-built-dependencies[]=esbuild
+only-built-dependencies[]=sharp
+
+build-allowed-packages[]=@parcel/watcher
+build-allowed-packages[]=esbuild
+build-allowed-packages[]=sharp
