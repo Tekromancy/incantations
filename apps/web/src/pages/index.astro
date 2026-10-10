@@ -905,6 +905,14 @@ function getTypeMeta(type: string) {
 
 				<!-- Category & Lineage Filter Pills -->
 				<ScrollReveal client:load delay={0.35}>
+					<!-- SEO Links to Hub Pages -->
+					<div class="mt-10 flex flex-wrap items-center justify-center gap-4 text-xs font-mono">
+						<span class="text-gray-500 font-bold tracking-widest uppercase">GoF Pattern Directories:</span>
+						<a href="/category/creational" class="px-3 py-1.5 rounded-lg border border-[#38bdf8]/30 bg-[#38bdf8]/10 text-[#38bdf8] hover:bg-[#38bdf8]/20 transition-colors">✧ Creational</a>
+						<a href="/category/structural" class="px-3 py-1.5 rounded-lg border border-[#22EE44]/30 bg-[#22EE44]/10 text-[#22EE44] hover:bg-[#22EE44]/20 transition-colors">✧ Structural</a>
+						<a href="/category/behavioral" class="px-3 py-1.5 rounded-lg border border-[#a855f7]/30 bg-[#a855f7]/10 text-[#a855f7] hover:bg-[#a855f7]/20 transition-colors">✧ Behavioral</a>
+					</div>
+
 					<div
 						class="flex flex-wrap justify-center gap-2 mt-6 text-xs font-mono"
 						id="category-filters"
@@ -1211,11 +1219,12 @@ function getTypeMeta(type: string) {
 								<!-- Header: Badges & Metadata -->
 								<div class="relative z-10 flex flex-wrap items-center justify-between gap-2.5 mb-4">
 									<div class="flex items-center gap-2">
-										<span
-											class={`px-2.5 py-1 rounded text-xs font-mono font-bold uppercase tracking-wider border ${meta.badgeClass}`}
+										<a
+											href={spell.data.type ? `/language/${spell.data.type}` : `/category/${spell.data.category}`}
+											class={`px-2.5 py-1 rounded text-xs font-mono font-bold uppercase tracking-wider border hover:opacity-80 transition-opacity ${meta.badgeClass}`}
 										>
 											{meta.badge}
-										</span>
+										</a>
 										<span class="px-2 py-0.5 rounded text-[10px] font-mono border border-white/10 bg-white/5 text-gray-300">
 											{spell.data.difficulty}
 										</span>
@@ -1229,7 +1238,9 @@ function getTypeMeta(type: string) {
 								<!-- Gang of Four Lineage Callout -->
 								<div class="relative z-10 mb-3 flex items-center gap-2 text-xs font-mono text-[#fbbf24] bg-[#fbbf24]/10 border border-[#fbbf24]/30 px-3 py-1.5 rounded-lg">
 									<span class="font-bold">GoF Lineage:</span>
-									<span class="text-white truncate">{spell.data.gofPattern}</span>
+									<a href={`/category/${spell.data.category}`} class="text-white hover:text-[#fbbf24] hover:underline truncate transition-colors">
+										{spell.data.gofPattern}
+									</a>
 								</div>
 
 								<!-- Title -->
@@ -1331,15 +1342,17 @@ function getTypeMeta(type: string) {
 						tags.indexOf(q) !== -1;
 
 					var wrapper = card.closest('astro-island');
-					if (!wrapper) wrapper = card.parentElement;
+					var parentDiv = card.parentElement;
 
 					if (matchesFilter && matchesQuery) {
-						if (wrapper) wrapper.style.display = "";
+						if (wrapper) wrapper.style.display = "contents";
+						if (parentDiv) parentDiv.style.display = "";
 						card.style.display = "flex";
 						visibleCount++;
 					} else {
-						if (wrapper) wrapper.style.display = "none";
-						card.style.display = "none";
+						if (wrapper) wrapper.style.setProperty("display", "none", "important");
+						if (parentDiv) parentDiv.style.setProperty("display", "none", "important");
+						card.style.setProperty("display", "none", "important");
 					}
 				});
 

@@ -10,23 +10,36 @@ import ReadingProgressBar from "../components/ReadingProgressBar.astro";
 
 export async function getStaticPaths() {
 	const incantations = await getCollection("incantations");
-	return incantations.map((spell, idx) => ({
-		params: { slug: spell.id },
-		props: {
-			spell,
-			prevSpell: idx > 0 ? incantations[idx - 1] : null,
-			nextSpell: idx < incantations.length - 1 ? incantations[idx + 1] : null,
-		},
-	}));
+	return incantations.map((spell, idx) => {
+		const relatedLang = incantations
+			.filter((s) => s.data.type === spell.data.type && s.id !== spell.id)
+			.slice(0, 3);
+		const relatedPattern = incantations
+			.filter((s) => s.data.gofPattern === spell.data.gofPattern && s.id !== spell.id)
+			.slice(0, 3);
+
+		return {
+			params: { slug: spell.id },
+			props: {
+				spell,
+				prevSpell: idx > 0 ? incantations[idx - 1] : null,
+				nextSpell: idx < incantations.length - 1 ? incantations[idx + 1] : null,
+				relatedLang,
+				relatedPattern,
+			},
+		};
+	});
 }
 
 type Props = {
 	spell: CollectionEntry<"incantations">;
 	prevSpell: CollectionEntry<"incantations"> | null;
 	nextSpell: CollectionEntry<"incantations"> | null;
+	relatedLang: CollectionEntry<"incantations">[];
+	relatedPattern: CollectionEntry<"incantations">[];
 };
 
-const { spell, prevSpell, nextSpell } = Astro.props;
+const { spell, prevSpell, nextSpell, relatedLang, relatedPattern } = Astro.props;
 const { Content } = await render(spell);
 
 function getTypeMeta(type: string) {
@@ -709,11 +722,12 @@ const jsonLd = {
 				<!-- Top Status Meta Header -->
 				<header class="mb-8">
 					<div class="flex flex-wrap items-center gap-2.5 mb-4">
-						<span
-							class={`px-3 py-1 rounded text-xs font-mono font-bold tracking-wider uppercase border ${meta.badgeClass}`}
+						<a
+							href={spell.data.type ? `/language/${spell.data.type}` : `/category/${spell.data.category}`}
+							class={`px-3 py-1 rounded text-xs font-mono font-bold tracking-wider uppercase border hover:opacity-80 transition-opacity ${meta.badgeClass}`}
 						>
 							{meta.badge}
-						</span>
+						</a>
 						<span class="px-2.5 py-1 rounded text-xs font-mono border border-white/10 bg-white/5 text-gray-300">
 							DIFFICULTY: {spell.data.difficulty}
 						</span>
@@ -741,7 +755,9 @@ const jsonLd = {
 						<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-gray-300">
 							<div>
 								<span class="text-gray-400 block text-[11px]">GOF DESIGN PATTERN:</span>
-								<strong class="text-white font-semibold">{spell.data.gofPattern}</strong>
+								<a href={`/category/${spell.data.category}`} class="text-white font-semibold hover:text-[#fbbf24] hover:underline transition-colors">
+									{spell.data.gofPattern}
+								</a>
 							</div>
 							<div>
 								<span class="text-gray-400 block text-[11px]">ARCANUM SCHOOL:</span>
@@ -801,6 +817,52 @@ const jsonLd = {
 							))}
 						</div>
 						<ShareButtons url={pageUrl} title={spell.data.title} />
+					</div>
+				</div>
+
+				<!-- Related Spells -->
+				<div class="mb-12 font-mono">
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+						{relatedPattern.length > 0 && (
+							<div>
+								<h3 class="text-[#fbbf24] font-bold text-sm mb-4 border-b border-[#fbbf24]/30 pb-2 flex items-center gap-2">
+									<span>✧</span> OTHER <span class="text-white">{spell.data.gofPattern.toUpperCase()}</span> SPELLS
+								</h3>
+								<ul class="space-y-3">
+									{relatedPattern.map((s) => (
+										<li>
+											<a href={`/${s.id}`} class="group flex items-center justify-between p-3 rounded-lg border border-white/5 bg-white/5 hover:border-[#fbbf24]/50 transition-colors">
+												<span class="text-gray-300 group-hover:text-white truncate pr-4 text-xs font-bold">{s.data.title}</span>
+												<span class="text-[10px] text-gray-500 group-hover:text-[#fbbf24] shrink-0 uppercase">{s.data.type}</span>
+											</a>
+										</li>
+									))}
+								</ul>
+								<div class="mt-4 text-right">
+									<a href={`/category/${spell.data.category}`} class="text-xs text-gray-400 hover:text-[#fbbf24] transition-colors">See all {spell.data.category} patterns →</a>
+								</div>
+							</div>
+						)}
+						{relatedLang.length > 0 && (
+							<div>
+								<h3 class="text-[#a855f7] font-bold text-sm mb-4 border-b border-[#a855f7]/30 pb-2 flex items-center gap-2">
+									<span>✧</span> MORE <span class="text-white">{spell.data.type.toUpperCase()}</span> SPELLS
+								</h3>
+								<ul class="space-y-3">
+									{relatedLang.map((s) => (
+										<li>
+											<a href={`/${s.id}`} class="group flex items-center justify-between p-3 rounded-lg border border-white/5 bg-white/5 hover:border-[#a855f7]/50 transition-colors">
+												<span class="text-gray-300 group-hover:text-white truncate pr-4 text-xs font-bold">{s.data.title}</span>
+												<span class="text-[10px] text-gray-500 group-hover:text-[#a855f7] shrink-0">{s.data.gofPattern}</span>
+											</a>
+										</li>
+									))}
+								</ul>
+								<div class="mt-4 text-right">
+									<a href={`/language/${spell.data.type}`} class="text-xs text-gray-400 hover:text-[#a855f7] transition-colors">See all {spell.data.type} spells →</a>
+								</div>
+							</div>
+						)}
 					</div>
 				</div>
 
