@@ -166,6 +166,38 @@ import { Icon } from "astro-icon/components";
 					</li>
 					<li>
 						<a
+							href="/category"
+							class="flex items-center gap-2 transition-colors"
+							style="color: var(--token-color-text-muted, #374151);"
+							onmouseenter={(e) =>
+								(e.currentTarget.style.color =
+									"var(--token-color-primary, #38bdf8)")}
+							onmouseleave={(e) =>
+								(e.currentTarget.style.color =
+									"var(--token-color-text-muted, #374151)")}
+						>
+							<Icon name="tabler:category" class="w-4 h-4 text-[#38bdf8]" aria-hidden="true" />
+							<span>Pattern Categories</span>
+						</a>
+					</li>
+					<li>
+						<a
+							href="/language"
+							class="flex items-center gap-2 transition-colors"
+							style="color: var(--token-color-text-muted, #374151);"
+							onmouseenter={(e) =>
+								(e.currentTarget.style.color =
+									"var(--token-color-primary, #fbbf24)")}
+							onmouseleave={(e) =>
+								(e.currentTarget.style.color =
+									"var(--token-color-text-muted, #374151)")}
+						>
+							<Icon name="tabler:code" class="w-4 h-4 text-[#fbbf24]" aria-hidden="true" />
+							<span>Language Compendium</span>
+						</a>
+					</li>
+					<li>
+						<a
 							href="https://tekromancy.com/apps"
 							class="flex items-center gap-2 transition-colors"
 							style="color: var(--token-color-text-muted, #374151);"
@@ -230,7 +262,7 @@ import { Icon } from "astro-icon/components";
 					</li>
 					<li>
 						<a
-							href="https://tekromancy.com/rss.xml"
+							href="/rss.xml"
 							class="flex items-center gap-2 transition-colors"
 							style="color: var(--token-color-text-muted, #374151);"
 							onmouseenter={(e) =>
@@ -245,7 +277,7 @@ import { Icon } from "astro-icon/components";
 								class="w-4 h-4 text-[#f59e0b]"
 								aria-hidden="true"
 							/>
-							<span>RSS Feed</span>
+							<span>Incantations RSS</span>
 						</a>
 					</li>
 				</ul>
