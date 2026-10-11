@@ -7,16 +7,16 @@ import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
 	const allIncantations = await getCollection("incantations");
-	const categories = [...new Set(allIncantations.map((spell) => spell.data.category).filter(Boolean))];
+	const categories = [...new Set(allIncantations.map((spell) => spell.data.gofCategory).filter(Boolean))];
 
-	return categories.map((category) => {
-		const filteredSpells = allIncantations.filter((spell) => spell.data.category === category);
+	return categories.map((cat) => {
+		const filteredSpells = allIncantations.filter((spell) => spell.data.gofCategory === cat);
 		// Sort alphabetically by title
 		filteredSpells.sort((a, b) => a.data.title.localeCompare(b.data.title));
 
 		return {
-			params: { category },
-			props: { category, spells: filteredSpells },
+			params: { category: cat.toLowerCase() },
+			props: { category: cat, spells: filteredSpells },
 		};
 	});
 }
@@ -62,7 +62,7 @@ function getSpellMeta(type: string | undefined, cat: string | undefined) {
 			<!-- Grid -->
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-max" id="incantation-grid">
 				{spells.map((spell, i) => {
-					const meta = getSpellMeta(spell.data.type, spell.data.category);
+					const meta = getSpellMeta(spell.data.type, spell.data.gofCategory);
 					return (
 						<ScrollReveal client:visible threshold={0.1} delay={i * 20}>
 							<article

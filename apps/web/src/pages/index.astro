@@ -1220,7 +1220,7 @@ function getTypeMeta(type: string) {
 								<div class="relative z-10 flex flex-wrap items-center justify-between gap-2.5 mb-4">
 									<div class="flex items-center gap-2">
 										<a
-											href={spell.data.type ? `/language/${spell.data.type}` : `/category/${spell.data.category}`}
+											href={spell.data.type ? `/language/${spell.data.type}` : `/category/${spell.data.gofCategory.toLowerCase()}`}
 											class={`px-2.5 py-1 rounded text-xs font-mono font-bold uppercase tracking-wider border hover:opacity-80 transition-opacity ${meta.badgeClass}`}
 										>
 											{meta.badge}
@@ -1238,7 +1238,7 @@ function getTypeMeta(type: string) {
 								<!-- Gang of Four Lineage Callout -->
 								<div class="relative z-10 mb-3 flex items-center gap-2 text-xs font-mono text-[#fbbf24] bg-[#fbbf24]/10 border border-[#fbbf24]/30 px-3 py-1.5 rounded-lg">
 									<span class="font-bold">GoF Lineage:</span>
-									<a href={`/category/${spell.data.category}`} class="text-white hover:text-[#fbbf24] hover:underline truncate transition-colors">
+									<a href={`/category/${spell.data.gofCategory.toLowerCase()}`} class="text-white hover:text-[#fbbf24] hover:underline truncate transition-colors">
 										{spell.data.gofPattern}
 									</a>
 								</div>

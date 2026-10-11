@@ -62,13 +62,13 @@ function getSpellMeta(type: string | undefined, category: string | undefined) {
 			<!-- Grid -->
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-max" id="incantation-grid">
 				{spells.map((spell, i) => {
-					const meta = getSpellMeta(spell.data.type, spell.data.category);
+					const meta = getSpellMeta(spell.data.type, spell.data.gofCategory);
 					return (
 						<ScrollReveal client:visible threshold={0.1} delay={i * 20}>
 							<article
 								class="incantation-card group relative flex flex-col justify-between h-full rounded-2xl border border-white/10 bg-[#0a0a0a]/80 backdrop-blur p-6 transition-all duration-300 hover:border-[#a855f7]/50 hover:shadow-[0_0_30px_-5px_rgba(168,85,247,0.3)] hover:-translate-y-1"
 								data-type={spell.data.type}
-								data-category={spell.data.category}
+								data-category={spell.data.gofCategory}
 								data-title={spell.data.title.toLowerCase()}
 								data-desc={spell.data.description.toLowerCase()}
 								data-formula={spell.data.formula?.toLowerCase() || ""}
@@ -96,7 +96,7 @@ function getSpellMeta(type: string | undefined, category: string | undefined) {
 									<div class="relative z-10 mb-3 flex items-center gap-2 text-xs font-mono text-[#fbbf24] bg-[#fbbf24]/10 border border-[#fbbf24]/30 px-3 py-1.5 rounded-lg">
 										<span class="font-bold">GoF Lineage:</span>
 										<span class="text-white truncate">
-											<a href={`/category/${spell.data.category}`} class="hover:underline">{spell.data.gofPattern}</a>
+											<a href={`/category/${spell.data.gofCategory.toLowerCase()}`} class="hover:underline">{spell.data.gofPattern}</a>
 										</span>
 									</div>
 								)}

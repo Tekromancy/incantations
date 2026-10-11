@@ -723,7 +723,7 @@ const jsonLd = {
 				<header class="mb-8">
 					<div class="flex flex-wrap items-center gap-2.5 mb-4">
 						<a
-							href={spell.data.type ? `/language/${spell.data.type}` : `/category/${spell.data.category}`}
+							href={spell.data.type ? `/language/${spell.data.type}` : `/category/${spell.data.gofCategory.toLowerCase()}`}
 							class={`px-3 py-1 rounded text-xs font-mono font-bold tracking-wider uppercase border hover:opacity-80 transition-opacity ${meta.badgeClass}`}
 						>
 							{meta.badge}
@@ -755,7 +755,7 @@ const jsonLd = {
 						<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-gray-300">
 							<div>
 								<span class="text-gray-400 block text-[11px]">GOF DESIGN PATTERN:</span>
-								<a href={`/category/${spell.data.category}`} class="text-white font-semibold hover:text-[#fbbf24] hover:underline transition-colors">
+								<a href={`/category/${spell.data.gofCategory.toLowerCase()}`} class="text-white font-semibold hover:text-[#fbbf24] hover:underline transition-colors">
 									{spell.data.gofPattern}
 								</a>
 							</div>
@@ -839,7 +839,7 @@ const jsonLd = {
 									))}
 								</ul>
 								<div class="mt-4 text-right">
-									<a href={`/category/${spell.data.category}`} class="text-xs text-gray-400 hover:text-[#fbbf24] transition-colors">See all {spell.data.category} patterns →</a>
+									<a href={`/category/${spell.data.gofCategory.toLowerCase()}`} class="text-xs text-gray-400 hover:text-[#fbbf24] transition-colors">See all {spell.data.gofCategory} patterns →</a>
 								</div>
 							</div>
 						)}
