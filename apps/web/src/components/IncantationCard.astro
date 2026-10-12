@@ -1,0 +1,99 @@
+---
+import { getTypeMeta } from "../utils/incantationMeta";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+	spell: CollectionEntry<"incantations">;
+}
+
+const { spell } = Astro.props;
+const meta = getTypeMeta(spell.data.type);
+---
+
+<article
+	class="incantation-card contain-card animate-card-fade rounded-2xl border transition-all duration-300 overflow-hidden flex flex-col p-6 sm:p-7 relative group hover:shadow-2xl hover:border-[#a855f7]/50"
+	data-type={spell.data.type}
+	data-category={spell.data.gofCategory}
+	style="background-color: var(--token-color-surface, #070c14); border-color: rgba(255, 255, 255, 0.1);"
+>
+	{/* Ambient back-glow */}
+	<div
+		class={`absolute -top-10 -right-10 w-48 h-48 opacity-10 pointer-events-none rounded-full blur-2xl transition-opacity group-hover:opacity-25 ${meta.glow}`}
+		aria-hidden="true"
+	/>
+
+	<!-- Header: Badges & Metadata -->
+	<div class="relative z-10 flex flex-wrap items-center justify-between gap-2.5 mb-4">
+		<div class="flex items-center gap-2">
+			<a
+				href={spell.data.type ? `/language/${spell.data.type}` : `/category/${spell.data.gofCategory.toLowerCase()}`}
+				class={`px-2.5 py-1 rounded text-xs font-mono font-bold uppercase tracking-wider border hover:opacity-80 transition-opacity ${meta.badgeClass}`}
+			>
+				{meta.badge}
+			</a>
+			<span class="px-2 py-0.5 rounded text-[10px] font-mono border border-white/10 bg-white/5 text-gray-300">
+				{spell.data.difficulty}
+			</span>
+		</div>
+		<div class="text-[11px] font-mono text-gray-400 flex items-center gap-1.5">
+			<span class="w-1.5 h-1.5 rounded-full bg-[#22EE44]"></span>
+			<span>{spell.data.arcaneSchool.split("//")[0].trim()}</span>
+		</div>
+	</div>
+
+	<!-- Gang of Four Lineage Callout -->
+	<div class="relative z-10 mb-3 flex items-center gap-2 text-xs font-mono text-[#fbbf24] bg-[#fbbf24]/10 border border-[#fbbf24]/30 px-3 py-1.5 rounded-lg">
+		<span class="font-bold">GoF Lineage:</span>
+		<a href={`/category/${spell.data.gofCategory.toLowerCase()}`} class="text-white hover:text-[#fbbf24] hover:underline truncate transition-colors">
+			{spell.data.gofPattern}
+		</a>
+	</div>
+
+	<!-- Title -->
+	<h2 class="relative z-10 text-xl sm:text-2xl font-bold font-mono text-white mb-2 group-hover:text-[#a855f7] transition-colors">
+		<a href={`/${spell.id}`} class="hover:underline">
+			{spell.data.title}
+		</a>
+	</h2>
+
+	<!-- Description -->
+	<p class="relative z-10 text-sm leading-relaxed text-gray-300 mb-5 flex-1">
+		{spell.data.description}
+	</p>
+
+	<!-- Code Formula Box with Copy Button -->
+	<div class="relative z-10 mb-5 rounded-xl border border-white/10 bg-black/90 p-3.5 font-mono text-xs overflow-hidden group/box shadow-inner">
+		<div class="flex items-center justify-between pb-2 mb-2 border-b border-white/10 text-[10px] text-gray-400">
+			<span class="text-[#22EE44] font-bold">
+				{meta.formulaTag}
+			</span>
+			<button
+				type="button"
+				class="copy-formula-btn px-2 py-0.5 rounded bg-white/10 hover:bg-[#a855f7] hover:text-white text-gray-300 transition-all font-mono text-[10px] cursor-pointer flex items-center gap-1"
+				data-formula={spell.data.formula}
+				title="Copy spell to clipboard"
+			>
+				<span class="btn-text">Copy Incantation</span>
+			</button>
+		</div>
+		<pre class="overflow-x-auto text-gray-200 select-all whitespace-pre-wrap break-all text-[11px] leading-relaxed max-h-36 scrollbar-thin"><code>{spell.data.formula}</code></pre>
+	</div>
+
+	<!-- Footer: Tags & Read Article CTA -->
+	<div class="relative z-10 pt-3 border-t border-white/10 flex items-center justify-between text-xs font-mono">
+		<div class="flex flex-wrap gap-1.5">
+			{spell.data.tags.slice(0, 3).map((tag: string) => (
+				<span class="text-[10px] px-2 py-0.5 rounded bg-white/5 border border-white/10 text-gray-400">
+					#{tag}
+				</span>
+			))}
+		</div>
+		<a
+			href={`/${spell.id}`}
+			class="text-[#38bdf8] group-hover:text-[#a855f7] font-bold flex items-center gap-1 hover:underline transition-colors shrink-0 ml-2"
+		>
+			<span>Read Full Scroll</span>
+			<span>→</span>
+		</a>
+	</div>
+</article>

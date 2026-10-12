@@ -316,3 +316,24 @@ main article a > div img,
 main article a > div[data-astro-cid] img {
 	border-radius: 0.5rem 0.5rem 0 0;
 }
+
+/* Performance Optimization: Content Visibility & Hardware-Accelerated Fade */
+.contain-card {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 350px;
+}
+
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-card-fade {
+  animation: cardFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

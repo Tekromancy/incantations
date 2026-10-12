@@ -2,7 +2,6 @@
 import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
-import ScrollReveal from "../../components/ScrollReveal.tsx";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
@@ -61,70 +60,68 @@ function getSpellMeta(type: string | undefined, cat: string | undefined) {
 
 			<!-- Grid -->
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-max" id="incantation-grid">
-				{spells.map((spell, i) => {
+				{spells.map((spell) => {
 					const meta = getSpellMeta(spell.data.type, spell.data.gofCategory);
 					return (
-						<ScrollReveal client:visible threshold={0.1} delay={i * 20}>
-							<article
-								class="incantation-card group relative flex flex-col justify-between h-full rounded-2xl border border-white/10 bg-[#0a0a0a]/80 backdrop-blur p-6 transition-all duration-300 hover:border-[#38bdf8]/50 hover:shadow-[0_0_30px_-5px_rgba(56,189,248,0.3)] hover:-translate-y-1"
-							>
-								<!-- Top Bar: Badge & Difficulty -->
-								<div class="relative z-10 flex items-start justify-between mb-4">
-									<div class="flex items-center gap-2">
-										<span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono tracking-wider bg-[#38bdf8]/20 text-[#7dd3fc] border border-[#38bdf8]/30">
-											{meta.badge}
-										</span>
-										<span class="px-2 py-0.5 rounded text-[10px] font-mono border border-white/10 bg-white/5 text-gray-300">
-											{spell.data.difficulty}
-										</span>
-									</div>
-									<div class="text-[11px] font-mono text-gray-400 flex items-center gap-1.5">
-										<span class="w-1.5 h-1.5 rounded-full bg-[#22EE44]"></span>
-										<span>{spell.data.arcaneSchool.split("//")[0].trim()}</span>
-									</div>
+						<article
+							class="incantation-card contain-card animate-card-fade group relative flex flex-col justify-between h-full rounded-2xl border border-white/10 bg-[#0a0a0a]/80 backdrop-blur p-6 transition-all duration-300 hover:border-[#38bdf8]/50 hover:shadow-[0_0_30px_-5px_rgba(56,189,248,0.3)] hover:-translate-y-1"
+						>
+							<!-- Top Bar: Badge & Difficulty -->
+							<div class="relative z-10 flex items-start justify-between mb-4">
+								<div class="flex items-center gap-2">
+									<span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono tracking-wider bg-[#38bdf8]/20 text-[#7dd3fc] border border-[#38bdf8]/30">
+										{meta.badge}
+									</span>
+									<span class="px-2 py-0.5 rounded text-[10px] font-mono border border-white/10 bg-white/5 text-gray-300">
+										{spell.data.difficulty}
+									</span>
 								</div>
-
-								<!-- GoF Lineage -->
-								{spell.data.gofPattern && (
-									<div class="relative z-10 mb-3 flex items-center gap-2 text-xs font-mono text-[#fbbf24] bg-[#fbbf24]/10 border border-[#fbbf24]/30 px-3 py-1.5 rounded-lg">
-										<span class="font-bold">GoF Lineage:</span>
-										<span class="text-white truncate">
-											{spell.data.gofPattern}
-										</span>
-									</div>
-								)}
-
-								<!-- Title -->
-								<h2 class="relative z-10 text-xl sm:text-2xl font-bold font-mono text-white mb-2 group-hover:text-[#38bdf8] transition-colors">
-									<a href={`/${spell.id}`} class="hover:underline">
-										{spell.data.title}
-									</a>
-								</h2>
-
-								<!-- Description -->
-								<p class="relative z-10 text-sm leading-relaxed text-gray-300 mb-5 flex-1">
-									{spell.data.description}
-								</p>
-
-								<!-- Footer: Tags -->
-								<div class="relative z-10 pt-3 border-t border-white/10 flex items-center justify-between text-xs font-mono mt-auto">
-									<div class="flex flex-wrap gap-1.5">
-										{spell.data.tags.slice(0, 3).map((tag) => (
-											<span class="text-[10px] px-2 py-0.5 rounded bg-white/5 border border-white/10 text-gray-400">
-												#{tag}
-											</span>
-										))}
-									</div>
-									<a
-										href={`/${spell.id}`}
-										class="text-[#38bdf8] group-hover:text-[#38bdf8] font-bold flex items-center gap-1 hover:underline transition-colors shrink-0 ml-2"
-									>
-										<span>Read Full Scroll</span>
-										<span>→</span>
-									</a>
+								<div class="text-[11px] font-mono text-gray-400 flex items-center gap-1.5">
+									<span class="w-1.5 h-1.5 rounded-full bg-[#22EE44]"></span>
+									<span>{spell.data.arcaneSchool.split("//")[0].trim()}</span>
 								</div>
-							</article>
-						</ScrollReveal>
+							</div>
+
+							<!-- GoF Lineage -->
+							{spell.data.gofPattern && (
+								<div class="relative z-10 mb-3 flex items-center gap-2 text-xs font-mono text-[#fbbf24] bg-[#fbbf24]/10 border border-[#fbbf24]/30 px-3 py-1.5 rounded-lg">
+									<span class="font-bold">GoF Lineage:</span>
+									<span class="text-white truncate">
+										{spell.data.gofPattern}
+									</span>
+								</div>
+							)}
+
+							<!-- Title -->
+							<h2 class="relative z-10 text-xl sm:text-2xl font-bold font-mono text-white mb-2 group-hover:text-[#38bdf8] transition-colors">
+								<a href={`/${spell.id}`} class="hover:underline">
+									{spell.data.title}
+								</a>
+							</h2>
+
+							<!-- Description -->
+							<p class="relative z-10 text-sm leading-relaxed text-gray-300 mb-5 flex-1">
+								{spell.data.description}
+							</p>
+
+							<!-- Footer: Tags -->
+							<div class="relative z-10 pt-3 border-t border-white/10 flex items-center justify-between text-xs font-mono mt-auto">
+								<div class="flex flex-wrap gap-1.5">
+									{spell.data.tags.slice(0, 3).map((tag) => (
+										<span class="text-[10px] px-2 py-0.5 rounded bg-white/5 border border-white/10 text-gray-400">
+											#{tag}
+										</span>
+									))}
+								</div>
+								<a
+									href={`/${spell.id}`}
+									class="text-[#38bdf8] group-hover:text-[#38bdf8] font-bold flex items-center gap-1 hover:underline transition-colors shrink-0 ml-2"
+								>
+									<span>Read Full Scroll</span>
+									<span>→</span>
+								</a>
+							</div>
+						</article>
 					);
 				})}
 			</div>
